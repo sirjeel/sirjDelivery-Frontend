@@ -1,0 +1,113 @@
+
+.records {
+    box-shadow: 0px 5px 5px -5px rgb(0 0 0 / 10%);
+    background: #fff;
+    border-top-left-radius: 0.8rem;
+    border-top-right-radius: 0.8rem;
+  }
+  /* purpose to display it as grid is to make flex the child element */
+  .record-header {
+    display: grid;
+   width: 100%;
+  }
+
+.formM {
+    display: grid;
+    grid-template-columns: 38% 1fr;
+    justify-self: end;
+    align-self: center;
+    height: 40%;
+    max-width: 1100px;
+    width: 100%;
+  }
+  
+  
+  .dateGrid {
+    display: grid;
+    grid-template-columns: 25% 75%;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+  .date {
+  width: 80%;
+  height: 100%;
+  }
+  .labeldate {
+    width: 75%;
+    height: 45%;
+    justify-self: right;
+    }
+  
+    .labelEnd {
+      width: 60%;
+      height: 45%;
+      justify-self: right;
+    }
+  
+  .startGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .searchGrid {
+    display: grid;
+    grid-template-columns: 35% 1fr 15%;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .name > input {
+    width: 95%;  
+    height: 100%;
+    border-radius: 0.5rem;
+  }
+  
+  
+  /* blow codes position and overflow props relates to ripple effect on button only */
+  .recordSearch{
+    width: 90%;
+    height: 100%;
+    cursor: pointer;
+    background: #22baa0;
+    color: #fff;
+    border-radius: 0.5rem;
+    border: none;
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* blow codes relates to ripple effect on button only */
+  .recordSearch::after {
+    content: "";
+    position: absolute;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    padding-top: 300%;
+    padding-left: 350%;
+    margin-left: -20px !important;
+    margin-top: -120%;
+    transform: scale(0);
+    opacity: 0;
+    transition: transform 0.6s ease, opacity 1s ease;
+  }
+  
+  /* blow codes relates to ripple effect on button only */
+  .recordSearch:active::after {
+    transform: scale(2);
+    opacity: 1;
+    transition: 0s;
+  }
+  
+  .startGridError {
+    grid-template-rows: 1fr 1fr;
+  }
+  .addressGridError {
+    grid-template-rows: 1fr 1fr;
+  }
+.errorM {
+    color: red
+}

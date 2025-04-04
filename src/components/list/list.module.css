@@ -1,0 +1,56 @@
+.listdashgrid {
+  overflow-y: auto; /* Ensure content scrolls if needed */
+  height: 100%; 
+  width: 100%;
+}
+
+.dashgrid {
+  display: grid;
+  width: 100%;
+  min-height: 2rem;
+  grid-template-columns: 5% 10% 10% 1fr 8% 15%;
+  border: 1px solid #dee2e8;
+  color: #444;
+  align-items: center;
+}
+
+
+
+.serial {
+  color: #22baa0;
+  font-weight: 600;
+  font-size: 0.9rem;
+  justify-self: center; /* Changed from justify-items */
+}
+
+.client-info h4 {
+  color: #555;
+  font-size: .85rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.clientC {
+  justify-self: start;
+}
+
+.success {
+  display: inline-block;
+  width: 50%;
+  text-align: center;
+  font-weight: 600;
+  color: var(--main-color);
+  background: #e5f8ed;
+  border-radius: 0.5rem;
+  font-size: .8rem;
+}
+.fail {
+  display: inline-block;
+  width: 50%;
+  text-align: center;
+  font-weight: 600;
+  color: var(--main-color);
+  background: #ff8080;
+  border-radius: 0.5rem;
+  font-size: .8rem;
+}

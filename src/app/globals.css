@@ -1,0 +1,303 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,900&display=swap");
+
+*,
+::after,
+::before {
+	 
+  margin: 0;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+
+
+a {
+	color: var(--bs-link-color);
+	text-decoration: underline;
+}
+
+a:hover {
+	color: var(--bs-link-hover-color);
+}
+
+label {
+	display: inline-block;
+  font-weight: 700;
+}
+
+button {
+	border-radius: 0;
+}
+
+button:focus:not(:focus-visible) {
+	outline: 0;
+}
+
+button,
+input {
+	margin: 0;
+	font-family: inherit;
+	line-height: inherit;
+}
+
+button {
+	text-transform: none;
+}
+
+[type=submit],
+
+
+[type=submit]:not(:disabled),
+button:not(:disabled) {
+	cursor: pointer;
+}
+/*===================================================================
+[Table Of Content]
+
+    * Typography CSS
+    * Common CSS
+    * Main Navigation CSS
+    * Header CSS
+    * Home Slider CSS
+    * About CSS
+    * Causes CSS
+    * Donate CSS
+    * Team CSS
+    * Brand Logo CSS
+    * Form CSS
+    * Blog CSS
+    * Contact CSS
+    * Footer CSS
+
+=====================================================================*/
+/*
+-----------------------------------------------------------------------
+  Typography CSS
+-----------------------------------------------------------------------
+*/
+body {
+    box-sizing: border-box; 
+    color: #333333;
+    font-size: clamp(0.5rem, 0.8vw, 0.8rem);
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    overflow-x: hidden;
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+  }
+  
+  h1, h2, h3, h4, h5, h6,
+  .h1, .h2, .h3, .h4, .h5, .h6 {
+    color: #333333;
+    font-family: "Poppins", sans-serif;    
+    font-size: clamp(1.2rem, 2vw, 2rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-top: 0;
+  }
+  
+  a {
+    color: #816031;
+    text-decoration: none;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+  }
+  a:hover, a:active, a:focus {
+    box-shadow: none;
+    color: #4a371c;
+    outline: none;
+    text-decoration: none;
+  }
+  a img {
+    border: none;
+  }
+  
+  .btn:focus {
+    box-shadow: none;
+  }
+  
+  p {
+    color: #777;
+    margin-bottom: 1rem;
+  }
+  p:last-child {
+    margin-bottom: 0;
+  }
+  
+  :active,
+  :focus {
+    box-shadow: none;
+    outline: none !important;
+  }
+  
+  ::selection {
+    background: #816031;
+    color: #fff;
+    text-shadow: none;
+  }
+  
+  ::-moz-selection {
+    background: #816031;
+    /* Firefox */
+    color: #fff;
+    text-shadow: none;
+  }
+  
+  ::-webkit-selection {
+    background: #816031;
+    /* Safari */
+    color: #fff;
+    text-shadow: none;
+  }
+  
+  img {
+    max-width: 100%;
+  }
+  
+  iframe {
+    border: none !important;
+  }
+  
+  textarea:focus, textarea:active, input:focus, input:active {
+    outline: none;
+  }
+  
+  ul {
+    padding: 0;
+  }
+  ul li {
+    list-style: none;
+    font-size: 1rem;    
+    font-weight: 700;
+  }
+  
+ 
+  
+  table p {
+    margin-bottom: 0;
+  }
+
+
+
+
+/*  map marker pin elements and info window ................................................   */
+
+
+.pin-container {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto;
+    gap: 8px; /* Space between marker and InfoWindow */
+    align-items: center;
+  }
+  
+.pin {
+  width: 30px;
+  height: 30px;
+  background-color: #000; /* Google Maps default red */
+  border: 2px solid #ffffff; /* White border for a polished look */
+  border-radius: 50% 50% 50% 0; /* Creates the pin shape */
+  position: relative;
+  transform: rotate(-45deg); /* Rotates the marker to point downward */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px; /* Adjust size of the number */
+  color: #ffffff; /* White text for contrast */
+  text-align: center;
+  line-height: normal; /* Ensures proper vertical alignment */
+  pointer-events: auto; /* Pointer cursor on hover */
+}
+
+.pin span {
+  transform: rotate(45deg); /* Counter-rotates the content */
+  display: inline-block; /* Ensures the rotation applies correctly */
+}
+
+.info-window {
+  display: none;
+  flex-direction: column; /* Stack close button and content */
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  padding: 6px 12px;
+  font-size: 12px;
+  color: #333;
+  position: relative; /* Needed for close button positioning */
+  pointer-events: auto; /* Pointer cursor on hover */
+}
+
+.info-window-header {
+  display: flex;
+  justify-content: space-between; /* Push close button to top-right */
+  align-items: center;
+}
+
+.info-window .close-button {
+  font-size: 12px;
+  color: #aaa;
+  cursor: pointer;
+  margin-left: auto; /* Ensure it's aligned to the right */
+}
+
+.info-window .close-button:hover {
+  color: #000;
+}
+
+.info-window .content {
+  margin-top: 4px; /* Add some space below the header */
+}
+
+.infoButton {
+  margin-top: 8px; 
+  padding: 5px 10px; 
+  background-color: #4285F4; 
+  color: white; 
+  border: none;
+  border-radius: 4px; 
+  cursor: pointer; 
+}
+
+/*** Blue dot map position pointer -......................*/
+
+.blue-dot-position {
+  background-color: #4285F4;
+  border: 2px solid white;
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+}
+
+.custom-map-control-button {
+  background-color: white;
+  border: 2px solid #4285F4;
+  border-radius: 50%;
+  cursor: pointer;
+  margin: 10px;
+  padding: 10px;
+  font-size: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  color:#4285F4;
+}
+.custom-map-control-button:hover {
+  background-color: #000;
+  
+}
+
+
+@media screen and (max-width: 768px) {
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  p, label, input, button {
+    font-size: 0.85rem;
+  }
+}
