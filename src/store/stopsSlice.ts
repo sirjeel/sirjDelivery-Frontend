@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { StopsFirebase } from "../types/index";
+import { Stop } from "../types/index";
 
 
   
@@ -8,10 +8,10 @@ import { StopsFirebase } from "../types/index";
   export const stopsSlice = createSlice({
     name: "stops",
     initialState: { 
-      stops: [] as StopsFirebase[], 
+      stops: [] as Stop[], 
       },
     reducers: {
-      setStops: (state, action: PayloadAction<StopsFirebase[]>) => {
+      setStops: (state, action: PayloadAction<Stop[]>) => {
         state.stops = action.payload;
       }, 
     },

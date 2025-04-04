@@ -50,7 +50,7 @@ export const getMostRecentRouteAndFilteredStops = async () => {
 
 
 
-export const getRoutesBetweenDates = async (startDate: string, endDate: string) => {
+export const getRoutesBetweenDates = async (startDate: number, endDate: number) => {
   try {
     const routesCollection = collection(db, 'route');
 /*
@@ -73,8 +73,8 @@ export const getRoutesBetweenDates = async (startDate: string, endDate: string) 
     querySnapshot.forEach((doc) => {
       routes.push({ ...doc.data() });
     });
-const flattenedStops = flattenStops(routes);
-    return routes;
+   const flattenedStops = flattenStops(routes);
+    return flattenedStops;
   } catch (error) {
     console.error("Error fetching routes:", error);
     return error;

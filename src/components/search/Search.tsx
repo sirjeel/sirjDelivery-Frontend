@@ -25,8 +25,6 @@ const Search = () => {
     const isoStringStart =  Math.floor(new Date(start).getTime() / 1000);
     const isoStringEnd = Math.floor(new Date(end).getTime() / 1000);
     const endingValue = isoStringEnd + 86400;
-    console.log( isoStringStart);
-    console.log( isoStringEnd);
     const response = await getRoutesBetweenDates(isoStringStart, endingValue);
     if (!response) {
       // response status is not 2xx
@@ -35,8 +33,8 @@ const Search = () => {
       return;
       };
 
-      const flattenedStops = flattenStops(response);
-      dispatch(setStops(flattenedStops));
+     
+      dispatch(setStops(response));
   }
     
     
