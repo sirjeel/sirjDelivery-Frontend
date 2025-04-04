@@ -14,7 +14,7 @@ export type PlaceDetails = BasePlace;
 export type Stop = BasePlace & {
   status: string;
   id: string;
-  time: string;
+  time?: string;
 };
 
 
