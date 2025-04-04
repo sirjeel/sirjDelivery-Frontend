@@ -36,7 +36,7 @@ export const flattenStops = (data) => {
       return acc;
     }, []);
   }
-  
+  /*
   export const stops=  [
     {
         "time": "2025-03-30T20:30:16.983Z",
@@ -269,3 +269,5 @@ export const flattenStops = (data) => {
         "time": "2025-03-30T14:28:38.359Z"
     }
 ];
+
+*/

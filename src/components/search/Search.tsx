@@ -3,7 +3,7 @@ import React from "react";
 import { useForm, type FieldValues } from "react-hook-form";
 import styles from "./search.module.css";
 import {getRoutesBetweenDates} from "../../firebase/index";
-import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import { useAppDispatch } from '../../store/hooks';
 import { setStops } from '../../store/stopsSlice';
 import { flattenStops } from "../../helper";
 

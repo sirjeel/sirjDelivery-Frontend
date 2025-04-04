@@ -2,7 +2,7 @@
 
 import React, {useEffect, useState} from "react";
 import styles from "./list.module.css";
-import { formatToUKTime, stops } from "../../helper";
+import { formatToUKTime} from "../../helper";
 import {getMostRecentRouteAndFilteredStops} from "../../firebase/index";
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { setStops } from '../../store/stopsSlice';
