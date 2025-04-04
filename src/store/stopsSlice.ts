@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Stop } from "../types/index";
 
 
   
@@ -8,10 +7,10 @@ import { Stop } from "../types/index";
   export const stopsSlice = createSlice({
     name: "stops",
     initialState: { 
-      stops: [] as Stop[], 
+      stops: [], 
       },
     reducers: {
-      setStops: (state, action: PayloadAction<Stop[]>) => {
+      setStops: (state, action) => {
         state.stops = action.payload;
       }, 
     },
