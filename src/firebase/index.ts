@@ -1,102 +1,14 @@
 
 import { initializeApp  } from "firebase/app";
-import { collection, getDoc, getFirestore, addDoc, serverTimestamp, doc, setDoc, deleteDoc,
-  query, orderBy, limit, getDocs, where, Timestamp
-  } from "firebase/firestore";
-import {Stop} from "../types/index";
+import { collection, getFirestore, query, orderBy, limit, getDocs, where  } from "firebase/firestore";
 import { firebaseConfig } from "../config";
+import {flattenStops} from "../helper"
 
 
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-
-
-
-// READ entry in collection 
-
-export const getfirebase = async (col) => {
-  try {
-    const querySnapshot = await getDocs(collection(db, col));
-  
-    const data = await querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-  
-    return data;
-  } catch (error) {
-      console.error("Error fetching data:", error);
-      throw error; // Re-throw the error for upstream handling
-  }
-};
-
-export const addfirebase = async (collectionName: string, data: any) => {
-  const collectionRef = collection(db, collectionName);
-
-  try {
-    const docRef = await addDoc(collectionRef, {
-      ...data,
-      createdAt: serverTimestamp()
-    });
-
-    // To get the server timestamp after creation, you'd need to fetch the document
-    const docSnapshot = await getDoc(docRef);
-    if (docSnapshot.exists()) {
-      const data = docSnapshot.data();
-      return { id: docRef.id, createdAt: data.createdAt };
-    } else {
-      return { id: docRef.id, createdAt: null }; // Or handle the case where the document doesn't exist
-    }
-
-  } catch (e) {
-    throw e; // Re-throw the error to handle it upstream
-  }
-}
-
-
-// below overwrites data even the collection is empty
-export const overwriteFirebase = async (collectionPath, documentId, data) => {
-  try {
-    // Create a reference to the document you want to overwrite/create
-    const adjData = {...data, createdAt: serverTimestamp()};
-    const docRef = doc(db, collectionPath, documentId);
-    // Use setDoc to overwrite the document
-    await setDoc(docRef, adjData);
-  } catch (error) {
-    throw error; // Re-throw the error to handle it upstream
-  }
-}
-// for sync purpose 
-export const overwriteFirebaseB = async (collectionPath, documentId, data) => {
-  try { 
-    const docRef = doc(db, collectionPath, documentId);
-    const dataWithTimestamp = {
-      ...data,
-      updatedAt: serverTimestamp()
-  };
-    // Use setDoc to overwrite the document
-    await setDoc(docRef, dataWithTimestamp);
-    console.log("Document successfully written:");
-    return; // Resolve the promise
-  } catch (error) {
-          console.error("Error writing document:", error);
-  }
-}
-
-
-// Delete entry in collection
- 
-export const deleteFirebase = async (collectionName: string, documentId: string) => {
-  const docRef = doc(db, collectionName, documentId);
-
-  try {
-    await deleteDoc(docRef);
-  } catch (error) {
-    throw error; // Re-throw the error to handle it upstream
-  }
-}
 
 
 
@@ -138,7 +50,7 @@ export const getMostRecentRouteAndFilteredStops = async () => {
 
 
 
-export const getRoutesBetweenDates = async (startDate, endDate) => {
+export const getRoutesBetweenDates = async (startDate: string, endDate: string) => {
   try {
     const routesCollection = collection(db, 'route');
 /*
@@ -161,7 +73,7 @@ export const getRoutesBetweenDates = async (startDate, endDate) => {
     querySnapshot.forEach((doc) => {
       routes.push({ ...doc.data() });
     });
-
+const flattenedStops = flattenStops(routes);
     return routes;
   } catch (error) {
     console.error("Error fetching routes:", error);

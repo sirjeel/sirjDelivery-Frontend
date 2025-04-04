@@ -1,6 +1,6 @@
 'use client';
 
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import styles from "./list.module.css";
 import { formatToUKTime} from "../../helper";
 import {getMostRecentRouteAndFilteredStops} from "../../firebase/index";
@@ -8,14 +8,12 @@ import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { setStops } from '../../store/stopsSlice';
 
 const List = () => {
-//const [routeId, stops] = useAppSelector((state) => state.stops.stops);
 const stops = useAppSelector((state) => state.stops.stops); // stops slice → stops array
 const dispatch = useAppDispatch();
 
   
   // const [stops, setStops] = useState([]);
 
- console.log("stops", stops); // Check the value of stops
       
   useEffect(() => {
     async function fetchStops() {

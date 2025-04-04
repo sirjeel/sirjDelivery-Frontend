@@ -13,7 +13,6 @@ const Search = () => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-    reset,
     getValues,
     trigger,
   } = useForm({
@@ -21,7 +20,7 @@ const Search = () => {
   });
 
   const onSubmit = async (data: FieldValues) => {
-    const { start, end, address } = data;
+    const { start, end } = data;
     console.log(start); // result is start "2025-04-03"
     const isoStringStart =  Math.floor(new Date(start).getTime() / 1000);
     const isoStringEnd = Math.floor(new Date(end).getTime() / 1000);
