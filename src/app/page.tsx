@@ -1,7 +1,7 @@
 
 import styles from "./page.module.css";
-import Search from "../components/search/Search";
-import List from "../components/list/List";
+import Search from "../components/AdminDashboard/search/Search";
+import List from "../components/AdminDashboard/list/List";
 
 
 const page = () => {

@@ -1,0 +1,62 @@
+
+
+
+
+.searchContainer {
+  display: grid;
+  grid-template-columns: 10% 1fr 11%;
+  border: 1px solid #dcdcdc;
+  border-radius: 0.5rem;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-items: center;
+  font-size: 1rem;
+}
+
+.searchS {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.searchBar {
+  justify-self: left;
+  background-color: #f7f7f7;
+}
+
+
+.searchS {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.subtitle {
+  font-size: 0.85rem;
+  color: #777;
+}
+
+
+.iconGps {
+  
+  color: #007bff;
+  }
+  
+
+.camIcon span {
+  cursor: pointer;
+}
+
+
+.grid{
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  
+}
+
+
+

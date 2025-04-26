@@ -1,0 +1,223 @@
+
+
+/* components/GridLayout.module.css */
+.gridContainer {
+  display: grid;
+  height: 100svh; /* Full viewport height */
+  width: 100lvw;  /* Full logical viewport width */
+  grid-template-areas:
+    "top"
+    "bottom";
+  grid-template-rows: 50svh 50svh;
+}
+
+/* Area-specific styles */
+.top { grid-area: top; }
+.bottom   { grid-area: bottom; }
+
+.top { 
+  display: grid;
+  background-color: #000;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.bottom {
+  border-top-right-radius: 1.2rem;
+  border-top-left-radius: 1.2rem;
+  background-color: white;  
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* below home ts file */ 
+
+.layout {
+  display: grid;
+  height: 100%; 
+  width: 100%;  
+  grid-template-rows: 4% 11% 12% 14% 1fr 12%;
+   /* below logic added to display dropdown list predicitons*/
+  overflow: visible !important;
+  position: relative;
+  z-index: 0;
+}
+
+
+.metrics {
+display: flex;
+margin-left: 2.5rem;
+align-items: center;
+width: 100%;
+height: 100%;
+
+}
+
+
+.gpsButton {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  width: 95%;
+  height: 100%;
+  cursor: pointer;
+}
+.startlabelGrid{
+  display: grid;
+  width: 100%;
+  height: 100%;
+  grid-template-columns: 1fr;
+  align-items: center;
+  justify-items: start;
+}
+
+.startlabel {
+  display: grid;
+  grid-template-columns: 15% 85%;
+  align-items: center;
+  justify-items: start;
+  height: 70%;
+  width: 77%;
+  margin-left: 2.3rem;
+  font-size: 0.7rem;
+}
+
+.errorList {
+  display: flex;
+  align-items: center;
+  padding: 0.625rem; /* 10px */
+  background-color: #fff;
+  border-radius: 0.5rem; /* 8px */
+  margin-bottom: 0.3125rem; /* 5px */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* elevation mimic */
+}
+
+.errorText {
+  flex: 1;
+  font-size: 0.875rem; /* ~14px */
+  color: red;
+  margin-left: 0.625rem; /* 10px */
+  line-height: 1.4;
+}
+
+.dropdownS {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #333;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.results {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  
+}
+
+.StartWrapper {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+.buttonWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.btnTheme {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #296ff5;
+  justify-self: center;
+  padding: 0.65rem;
+  border-radius: 0.4rem;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  gap: 0.5rem;
+  cursor: pointer;
+  width: 42%;
+  height: 80%;
+  border: none;
+}
+
+.btnText {
+  margin-left: 0.1rem;
+}
+
+
+
+.dragIcon {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 65%;
+}
+
+.dragBar {
+  width: 3rem;
+  height: 0.20rem;
+  background-color: #c7d0e1;
+  border-radius: 0.2rem;
+}
+
+.loader {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid white;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  animation: spin 1s linear infinite;
+}
+
+
+.arrowStyle {
+  display: grid;
+  grid-template-columns: 85% 15%;
+  height: 85%;
+  width: 90%;
+  align-items: center;
+  justify-self: right;
+}
+
+
+.navRight {
+  font-size: 1.5rem;
+  color: #296ff5;
+  justify-self: center;
+}
+
+.searchbarArrow {
+  height: 100%;
+  width: 100%;
+}
+
+.centerB{
+width: 77%;
+height: 85%;
+margin-left: 2.3rem;
+}
+
+.centerC{
+  width: 77%;
+  height: 85%;
+  margin-left: 2.3rem;
+  }
+/* debugging bacground color on divs
+.arrowStyle {
+  background-color: rgba(0, 255, 0, 0.1);
+}
+.searchbarArrow {
+  background-color: rgba(0, 0, 255, 0.1);
+}
+.navRight {
+  background-color: rgba(255, 0, 0, 0.1);
+}
+*/

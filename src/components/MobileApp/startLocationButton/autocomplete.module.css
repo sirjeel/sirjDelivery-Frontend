@@ -1,0 +1,49 @@
+.container {
+  padding: 1rem;
+}
+
+
+
+
+.searchContainer {
+  display: grid;
+  grid-template-columns: 10% 1fr 11%;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-items: center;
+  font-size: 1rem;
+}
+
+.searchS {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #333;
+  background-color: white;
+}
+
+.searchBar {
+  justify-self: left;
+  background-color: #f7f7f7;
+}
+
+
+
+
+.iconGps {
+  
+  color: #007bff;
+  }
+  
+
+.camIcon span {
+  cursor: pointer;
+}
+
+
+
+
+
+

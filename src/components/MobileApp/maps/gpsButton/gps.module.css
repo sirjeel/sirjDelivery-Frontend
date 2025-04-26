@@ -1,0 +1,20 @@
+
+
+
+.custom-map-control-button {
+  background-color: white;
+  border: 2px solid #4285F4;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  color:#4285F4;
+  position: absolute;
+  top: 30%;
+  right: 1rem;
+}
+.custom-map-control-button:hover {
+  background-color: #000;
+  color:white;
+  
+}

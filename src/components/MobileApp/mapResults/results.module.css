@@ -1,0 +1,57 @@
+.todoList {
+    display: grid;
+    grid-template-columns: auto 1fr 7%;
+    align-items: center;
+    padding: 0.625rem; /* 10px */
+    background-color: #fff;
+    border-radius: 0.5rem; /* 8px */
+    margin-bottom: 0.3125rem; /* 5px */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* elevation mimic */
+  }
+  
+  .todoText {
+    flex: 1;
+    font-size: 0.875rem; /* ~14px */
+    color: #000;
+    margin-left: 0.625rem; /* 10px */
+    line-height: 1.4;
+  }
+
+    .todoListB {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        padding: 0.625rem; /* 10px */
+        background-color: #fff;
+        border-radius: 0.5rem; /* 8px */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* elevation mimic */
+        margin-bottom: 0.3125rem; /* 5px */
+        cursor: pointer;
+        
+        }
+       
+
+    .proGo {
+        display: grid;
+        align-items: center;
+        justify-self: center;
+        }
+        
+        .proGoB {
+          display: grid;
+          
+          }
+        
+        
+        .proGo:hover {
+          cursor: pointer;
+          color:  #816031;
+        }
+        
+         .serial {
+          font-weight: 600;
+          display: flex;
+          align-items: center;
+          color: #468252;
+            font-size: 0.9rem;
+         }
+          

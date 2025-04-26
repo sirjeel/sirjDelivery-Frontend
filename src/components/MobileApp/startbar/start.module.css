@@ -1,0 +1,24 @@
+.todoList {
+  display: grid;
+  grid-template-columns: 80% 20%;
+  background-color: #fff;
+  border-radius: 0.2rem; /* 8px */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* elevation mimic */
+  width: 100%;
+  height: 100%;
+  align-items: center;
+}
+
+.todoText {
+  color: #000;
+  font-size: 0.7rem;
+  width: 100%;
+  margin-left: 0.3rem;
+}
+
+.proRemove {
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}

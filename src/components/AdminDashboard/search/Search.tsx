@@ -2,13 +2,13 @@
 import React from "react";
 import { useForm, type FieldValues } from "react-hook-form";
 import styles from "./search.module.css";
-import {getRoutesBetweenDates} from "../../firebase/index";
-import { useAppDispatch } from '../../store/hooks';
-import { setStops } from '../../store/stopsSlice';
-import { flattenStops } from "../../helper";
+import { useAppDispatch } from '../../../store/hooks';
+import { setStops } from '../../../store/stopsSlice';
+
 
 const Search = () => {
   const dispatch =  useAppDispatch();
+  
   const {
     register,
     handleSubmit,
@@ -18,6 +18,7 @@ const Search = () => {
   } = useForm({
     mode: "onChange", // validate on change for instant feedback
   });
+  /*
 
   const onSubmit = async (data: FieldValues) => {
     const { start, end } = data;
@@ -31,17 +32,15 @@ const Search = () => {
       console.error("Error submitting query request:", response.statusText);
       alert("Submitting query request failed. Please try again");
       return;
-      };
-
-     
-      dispatch(setStops(response));
+      };     
+     dispatch(setStops(response));
   }
+    */
     
-    
-
+ // onSubmit={handleSubmit(onSubmit)}
   return (
     <div className={`${styles["record-header"]} ${styles.records}`}>
-      <form className={styles.formM} onSubmit={handleSubmit(onSubmit)}>
+      <form className={styles.formM} >
         
         <div
           className={`${styles.startGrid} ${

@@ -1,0 +1,159 @@
+
+/* below home ts file */ 
+
+.layout {
+  display: grid;
+  height: 100%; 
+  width: 100%;  
+  grid-template-rows: 4% 12% 9% 1fr 12%;
+  
+}
+
+.layoutB {
+  display: grid;
+  height: 100%; 
+  width: 100%;  
+  grid-template-rows: 4% 12% 9% 1fr;
+}
+
+.layoutC {
+  display: grid;
+  height: 100%; 
+  width: 100%;  
+  grid-template-rows: 4% 12% 1fr 12%;
+}
+
+
+.metrics {
+display: flex;
+margin-left: 1.15rem;
+align-items: center;
+width: 100%;
+height: 100%;
+}
+
+
+.gpsButton {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  width: 95%;
+  height: 100%;
+  cursor: pointer;
+}
+
+
+
+
+
+
+.dropdownS {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #333;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.results {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+}
+.buttonWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.btnTheme {
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  background-color: var(--custom-background-color, #296ff5);
+  justify-self: center;
+  align-self: center;
+  padding: 0.65rem;
+  border-radius: 0.4rem;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  gap: 0.5rem;
+  cursor: pointer;
+  width: 35%;
+  height: 80%;
+  border: none;
+}
+
+.btnText {
+  margin-left: 0.5rem;
+}
+
+
+
+
+
+.dragIcon {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 65%;
+}
+
+.dragBar {
+  width: 3rem;
+  height: 0.20rem;
+  background-color: #c7d0e1;
+  border-radius: 0.2rem;
+}
+
+.loader {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid white;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  animation: spin 1s linear infinite;
+}
+
+
+.arrowStyle {
+  display: grid;
+  grid-template-columns: 15% 85%;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+}
+
+
+.navRight {
+  font-size: 1.5rem;
+  color: #296ff5;
+  justify-self: center;
+  align-self: start;
+}
+
+.searchbarArrow {
+  justify-self: start;
+  height: 85%;
+  width: 80%;
+  align-self: start;
+}
+
+.centerB{
+width: 80%;
+justify-self: center;
+}
+/* debugging bacground color on divs
+.arrowStyle {
+  background-color: rgba(0, 255, 0, 0.1);
+}
+.searchbarArrow {
+  background-color: rgba(0, 0, 255, 0.1);
+}
+.navRight {
+  background-color: rgba(255, 0, 0, 0.1);
+}
+*/

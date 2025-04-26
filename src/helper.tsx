@@ -1,4 +1,6 @@
+import { start } from "repl";
 
+const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAP_API;
 
 export const formatToUKTime = (isoString) => {
     const ukFormatter = new Intl.DateTimeFormat('en-GB', {
@@ -36,238 +38,447 @@ export const flattenStops = (data) => {
       return acc;
     }, []);
   }
-  /*
-  export const stops=  [
-    {
-        "time": "2025-03-30T20:30:16.983Z",
-        "description": "131 Kennington Rd, Nottingham NG8 1QE, UK",
-        "lng": -1.187526,
-        "name": "131 Kennington Rd",
-        "id": "0a848a11-74ba-3e41-4bca-f37d59437cc2",
-        "place_id": "ChIJE8-5X_fBeUgRSns08QvTGV0",
-        "lat": 52.9581074,
-        "status": "failed"
-    },
-    {
-        "lng": -1.1833091,
-        "place_id": "ChIJ_6PWE_HBeUgRKpZH2Q5FxsY",
-        "id": "cb2b7953-7330-dc78-8e2e-a3501e5b4ffb",
-        "description": "8 Fleet Cl, Nottingham NG7 5RY, UK",
-        "name": "8 Fleet Cl",
-        "time": "2025-03-30T16:48:06.164Z",
-        "status": "completed",
-        "lat": 52.961298
-    },
-    {
-        "lng": -1.172562,
-        "status": "completed",
-        "place_id": "ChIJd4NQkorBeUgR6gwJTpSC4Lo",
-        "id": "55c68191-4bdc-22ab-b0f2-2644a79162d1",
-        "name": "115 Rothesay Ave",
-        "time": "2025-03-30T16:36:23.996Z",
-        "description": "115 Rothesay Ave, Nottingham NG7 1PW, UK",
-        "lat": 52.9553448
-    },
-    {
-        "time": "2025-03-30T16:31:26.004Z",
-        "id": "77180cdc-0f81-d5e1-d7bd-3ff18a54d2a1",
-        "lng": -1.1629896,
-        "status": "completed",
-        "place_id": "ChIJs12hrYjBeUgRVq-3NEPW9XA",
-        "lat": 52.9594754,
-        "name": "5 Francis St",
-        "description": "5 Francis St, Nottingham NG7 4GB, UK"
-    },
-    {
-        "place_id": "ChIJOTvWAYLBeUgR1P4NOH3DSM0",
-        "status": "completed",
-        "lng": -1.1504652,
-        "time": "2025-03-30T16:24:51.676Z",
-        "id": "659a7a02-c877-7fe3-da73-c82d5729897a",
-        "lat": 52.9598381,
-        "name": "YMCA International Community Centre",
-        "description": "61B Mansfield Rd, Nottingham NG1 3FN, UK"
-    },
-    {
-        "description": "9-11 Watcombe Circus, Carrington, Nottingham NG5 2DU, UK",
-        "place_id": "ChIJ6Xx6IaDBeUgRBnD_I7xHqoI",
-        "status": "completed",
-        "lat": 52.9761607,
-        "time": "2025-03-30T16:17:21.255Z",
-        "id": "d3f8989c-1d9c-3de5-a760-0f73ad68ce66",
-        "name": "9-11 Watcombe Circus",
-        "lng": -1.1522714
-    },
-    {
-        "name": "3 Glamis Rd",
-        "status": "completed",
-        "description": "3 Glamis Rd, Nottingham NG5 1ED, UK",
-        "place_id": "ChIJIcbyi7zBeUgRqIxBmTbqNQM",
-        "lng": -1.1659904,
-        "time": "2025-03-30T16:12:28.140Z",
-        "id": "d4990acc-f491-0abb-89a7-184c5a997809",
-        "lat": 52.9800323
-    },
-    {
-        "time": "2025-03-30T15:57:51.569Z",
-        "status": "completed",
-        "id": "113b45d4-04bb-fc42-7396-d9ef9e08eb3d",
-        "lat": 53.0003761,
-        "place_id": "ChIJZQP3V9bAeUgRPS4QS9zT06s",
-        "description": "5 Gorman Ct, Arnold, Nottingham NG5 7LR, UK",
-        "lng": -1.1094795,
-        "name": "5 Gorman Ct"
-    },
-    {
-        "lat": 52.9930318,
-        "lng": -1.1515154,
-        "id": "db5a4a13-ec40-2f09-7183-1ddc861927ff",
-        "name": "170 Edwards Ln",
-        "place_id": "ChIJ-d0HDKrBeUgREy55mQyfZts",
-        "description": "170 Edwards Ln, Nottingham NG5 3HZ, UK",
-        "status": "completed",
-        "time": "2025-03-30T15:48:45.656Z"
-    },
-    {
-        "lat": 52.99649660000001,
-        "name": "8 Raymede Cl",
-        "time": "2025-03-30T15:40:34.817Z",
-        "id": "5e0671b4-a1ad-123d-a984-37be9b774e73",
-        "description": "8 Raymede Cl, Nottingham NG5 5FW, UK",
-        "status": "completed",
-        "lng": -1.1727072,
-        "place_id": "EiQ4IFJheW1lZGUgQ2wsIE5vdHRpbmdoYW0gTkc1IDVGVywgVUsiMBIuChQKEgkjSlbXtMF5SBFlIgm9tTW1PhAIKhQKEgnNn8HXtMF5SBH0E-BjN5hk9Q"
-    },
-    {
-        "place_id": "ChIJ75_g37nBeUgRolYzL31dTuc",
-        "description": "14 Tunstall Dr, Nottingham NG6 0FN, UK",
-        "lng": -1.171395,
-        "id": "5b7d547e-8409-50e4-c5fe-18766246d4ad",
-        "status": "completed",
-        "name": "14 Tunstall Dr",
-        "lat": 52.9863261,
-        "time": "2025-03-30T15:31:48.235Z"
-    },
-    {
-        "id": "57def599-dbc8-ddae-441d-55e096b3ef79",
-        "description": "86 Highbury Rd, Nottingham NG6 9DQ, UK",
-        "place_id": "ChIJ4ZmCftLBeUgRy9wxQ_sK73o",
-        "name": "86 Highbury Rd",
-        "time": "2025-03-30T15:25:31.964Z",
-        "status": "completed",
-        "lng": -1.18954,
-        "lat": 52.994087
-    },
-    {
-        "status": "completed",
-        "description": "19 Bullfinch Rd, Nottingham NG6 0NJ, UK",
-        "lat": 52.9866973,
-        "lng": -1.1867652,
-        "place_id": "EicxOSBCdWxsZmluY2ggUmQsIE5vdHRpbmdoYW0gTkc2IDBOSiwgVUsiMBIuChQKEgmhXwqSz8F5SBHZPBX6Kt6urxATKhQKEgn_CsyNz8F5SBEu7g7NY6S3fw",
-        "id": "ed4fd345-7a6a-a166-f0f7-24e40a7dc679",
-        "name": "19 Bullfinch Rd",
-        "time": "2025-03-30T15:18:26.964Z"
-    },
-    {
-        "description": "400 Aspley Ln, Aspley, Nottingham NG8 5RS, UK",
-        "lng": -1.2017373,
-        "place_id": "ChIJddMbZQrqeUgRWlPwQu-q_fI",
-        "id": "a8bf3fc4-3ab4-50bc-44a0-f6575b23f981",
-        "name": "400 Aspley Ln",
-        "time": "2025-03-30T15:09:24.053Z",
-        "status": "completed",
-        "lat": 52.972160599999995
-    },
-    {
-        "place_id": "ChIJQW7fpWzqeUgRGTTg13i8QG0",
-        "lat": 52.9759795,
-        "time": "2025-03-30T15:04:44.817Z",
-        "id": "18bde3c4-9f77-cc49-c492-81e1def181cd",
-        "lng": -1.2195845,
-        "status": "completed",
-        "name": "66 Frinton Rd",
-        "description": "66 Frinton Rd, Nottingham NG8 6GQ, UK"
-    },
-    {
-        "description": "182 Woodfield Rd, Nottingham NG8 6HU, UK",
-        "lat": 52.9788288,
-        "id": "853b0a85-77f7-c005-fc63-58ab95f174c4",
-        "status": "completed",
-        "lng": -1.2208846,
-        "name": "182 Woodfield Rd",
-        "place_id": "ChIJG2wbjmvqeUgRbo4QmHNwrNg",
-        "time": "2025-03-30T15:01:06.481Z"
-    },
-    {
-        "name": "49 Melford Rd",
-        "description": "49 Melford Rd, Nottingham NG8 4AP, UK",
-        "place_id": "ChIJ1xsTuT3qeUgRdeNjoSvLUIE",
-        "id": "afb1fd25-9b2b-ae04-e797-15f5d5a08828",
-        "time": "2025-03-30T14:53:16.034Z",
-        "lat": 52.968169599999996,
-        "lng": -1.2280640999999999,
-        "status": "completed"
-    },
-    {
-        "time": "2025-03-30T14:48:13.452Z",
-        "description": "46 Kinross Cres, Nottingham NG8 3FU, UK",
-        "place_id": "ChIJBxyr1wXqeUgRbq4HqUEjy2w",
-        "name": "46 Kinross Cres",
-        "lat": 52.9624238,
-        "status": "completed",
-        "lng": -1.2069049,
-        "id": "f96cc1dd-ee97-4ba0-99ac-e1a4ec38f5db"
-    },
-    {
-        "place_id": "ChIJbVDpLgTqeUgRh-MLzMLMwE4",
-        "status": "completed",
-        "lng": -1.2071904,
-        "time": "2025-03-30T14:45:32.549Z",
-        "id": "961b10cf-ed6f-d419-ef76-5cc8c2711f5a",
-        "description": "99 Hollington Rd, Nottingham NG8 3HP, UK",
-        "name": "99 Hollington Rd",
-        "lat": 52.9614499
-    },
-    {
-        "name": "90 Felstead Rd",
-        "lat": 52.9603017,
-        "id": "d10e42de-95f3-8c7a-692e-a70e27f78006",
-        "time": "2025-03-30T14:42:37.347Z",
-        "status": "completed",
-        "place_id": "ChIJRdIrQQfqeUgRVgNQol2hDM0",
-        "lng": -1.2016701,
-        "description": "90 Felstead Rd, Nottingham NG8 3HF, UK"
-    },
-    {
-        "place_id": "EiVXZXN0aG9sbWUgR2FyZGVucywgTm90dGluZ2hhbSBORzgsIFVLIi4qLAoUChIJee0RDvvBeUgRJq4GFLkIeC8SFAoSCdN36QmPxnlIEQ3BhHPcd8vM",
-        "name": "Westholme Gardens",
-        "time": "2025-03-30T14:35:28.344Z",
-        "lng": -1.1912053,
-        "description": "Westholme Gardens, Nottingham NG8, UK",
-        "id": "be68b21b-f1ba-fe70-7ac5-d5beae711f87",
-        "lat": 52.962622,
-        "status": "completed"
-    },
-    {
-        "id": "0eba6a02-7c85-09e5-983c-d754aee3a685",
-        "status": "completed",
-        "place_id": "ChIJIQ-LhvDBeUgR3rRLEEZY9Eo",
-        "description": "19 Northdown Rd, Nottingham NG8 3PF, UK",
-        "name": "19 Northdown Rd",
-        "lng": -1.1871211,
-        "time": "2025-03-30T14:32:12.735Z",
-        "lat": 52.9618645
-    },
-    {
-        "status": "completed",
-        "lat": 52.96132,
-        "name": "23 Vale Cres N",
-        "place_id": "ChIJT9pkkPDBeUgR-yEMZKkzO8Q",
-        "id": "5b6dada9-db4b-3957-34fd-a87f950c0944",
-        "description": "23 Vale Cres N, Nottingham NG8 3PR, UK",
-        "lng": -1.1868417,
-        "time": "2025-03-30T14:28:38.359Z"
-    }
-];
 
-*/
+  export const transformMarker = (data) => data.map(item => ({
+    position: {
+        lat: item.lat,
+        lng: item.lng
+    },
+    title: item.name
+  }));
+
+  
+
+
+  // below code is only for arrays if your data structure is not array dont use it.
+// below is clean code of nested two fold if statement if window true then go inside then if local storage true then do that 
+export const stopsLocalstorage = (key) => {
+  try {
+    if (typeof window === 'undefined') return []; // Prevent issues in non-browser environments
+
+    const stops = JSON.parse(localStorage.getItem(`${key}`) ?? '[]');
+
+    // Filter out null, undefined, or falsy values
+    const filteredStops = Array.isArray(stops) ? stops.filter(Boolean) : [];    
+
+    return filteredStops; // Return the cleaned array
+  } catch (error) {
+    console.error("Error accessing or cleaning stops in local storage:", error.message);
+    return []; // Return an empty array if something goes wrong
+  }
+};
+
+export const debounce = (func: (...args: string[]) => void, delay: number): ((...args: string[]) => void) => {
+  let timeoutId: ReturnType<typeof setTimeout>;
+
+  return (...args: string[]): void => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      func(...args);
+    }, delay);
+  };
+};
+
+
+export const uuid = () => {
+  // Generate random hexadecimal digits
+  const digits = "0123456789abcdef";
+  const n = digits.length;
+
+  // Generate random hexadecimal digits and concatenate them to form the UUID
+  let uuid = Array.from({ length: 32 }, () =>
+    digits[Math.floor(Math.random() * n)]
+  ).join("");
+
+  // Add hyphens to the UUID to separate it into groups
+  uuid = `${uuid.slice(0, 8)}-${uuid.slice(8, 12)}-${uuid.slice(12, 16)}-${uuid.slice(16, 20)}-${uuid.slice(20)}`;
+
+  return uuid;
+};
+
+export const timeStamp = () => {
+  const currentTime = new Date(); // Get current time
+  // Format the times as ISO 8601 strings
+  const formattedTime = currentTime.toISOString();
+
+  return formattedTime
+}
+
+const calculateTimes = () => {
+  const currentTime = new Date(); // Get current time
+
+  // Add 2 hours to the current time for startTime
+  const startTime = new Date(currentTime.getTime() + 1 * 60 * 60 * 1000);
+
+  // Add 20 hours to the startTime for endTime
+  const endTime = new Date(startTime.getTime() + 20 * 60 * 60 * 1000);
+
+  // Format the times as ISO 8601 strings
+  const formattedStartTime = startTime.toISOString();
+  const formattedEndTime = endTime.toISOString();
+
+  return {
+    startTime: formattedStartTime,
+    endTime: formattedEndTime,
+  };
+}
+
+
+
+export const reportingMetrics = (metrics, stops ) => {
+  
+  // Fixed adjustedHours and added adjustedDistance calculation
+  const adjustedHours = (
+    (metrics?.travelDuration ? JSON.parse(metrics.travelDuration) : 0) 
+    + (0.0583 * (stops?.length || 0))
+  );
+  
+  const adjustedDistance = metrics.travelDistance ? JSON.parse(metrics.travelDistance) : 0;
+
+  // Get the current time and calculate the finish time based on adjustedHours
+  const currentTime = new Date();
+  const finishTime = new Date(currentTime.getTime() + adjustedHours * 60 * 60 * 1000);
+  const hours = finishTime.getHours();
+  const minutes = finishTime.getMinutes();
+  const ampm = hours >= 12 ? 'pm' : 'am';
+  const formattedTime = `${(hours % 12) || 12}:${minutes < 10 ? '0' + minutes : minutes} ${ampm}`;
+  return [{
+    distanceKm: adjustedDistance.toFixed(2), 
+    durationHours: adjustedHours.toFixed(2), 
+    finishTime: formattedTime  
+  }]
+}
+
+
+
+
+const saveMetricsToLocalStorage = (model) => {
+  const travelDistance = (model?.response[0]?.metrics?.aggregatedRouteMetrics?.travelDistanceMeters || 0) / 1000;
+  const travelDuration = ((model?.response[0]?.metrics?.aggregatedRouteMetrics?.travelDuration?.seconds || 0) / 60)/60;
+
+  const routeMetrics = {
+    travelDistance: travelDistance.toFixed(2),
+    travelDuration: travelDuration.toFixed(2),
+  };
+
+  const stops = stopsLocalstorage('stops').filter(item => item.status === "pending");
+  const filterData = reportingMetrics(routeMetrics, stops);
+
+  if (typeof localStorage !== 'undefined') {
+     localStorage.setItem('metrics', JSON.stringify(filterData));
+  }
+
+};
+
+export const extractWaypoints = (a) => {
+  const nestedArray = a?.response[0]?.routes[0]?.visits;  
+
+  // iterate the deeply nested object to get required data
+ const transformArray = nestedArray.map(item => {
+    if (!item?.isPickup) {
+      return item?.shipmentIndex
+    }
+  });
+  return transformArray;
+};
+
+export const reorderElements = (b, a) => {
+  // Sort the middle elements based on the order defined in a
+  const sortedStops = a.map(index => b[index]);
+
+  // Reconstruct b with the sorted middle elements
+  return sortedStops;
+};
+ 
+// below api is sync with next js backend because CORS doesnt allow to fetch directly from front end
+export const fetchData = async (inputText: string) => {
+  try {
+    const response = await fetch(`/api/places?type=autocomplete&input=${encodeURIComponent(inputText)}`);
+    const data = await response.json();
+    return (data.predictions).map(({ description, place_id }: any) => ({ description, place_id,}));    
+  } catch (error) {
+    console.error("Error fetching predictions:", error);
+    return [];
+  }
+};
+
+
+export async function fetchGeolocation() {
+  const res = await fetch(`https://www.googleapis.com/geolocation/v1/geolocate?key=${apiKey}`, {
+    method: 'POST',
+  });
+
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.error?.message || 'Failed to fetch geolocation');
+  }
+
+  const data = await res.json();
+  return {
+    lat: data.location.lat,
+    lng: data.location.lng,
+  };
+}
+
+// below api is sync with next js backend because CORS doesnt allow to fetch directly from front end
+export const getPlaceDetails = async (placeId: string) => {
+  const apiUrl =`/api/places?type=details&placeId=${placeId}`;
+
+  try {
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+    console.log("Place details:", data);
+
+    return data;
+  } catch (error) {
+    console.error("Error fetching place details:", error);
+    throw error;
+  }
+};
+
+
+
+export const addStop = async (id) => {
+  const fetchstop = await getPlaceDetails(id);
+  const uniqueId = uuid();
+  console.log(uniqueId);
+
+  return { ...fetchstop, status: "pending", stopId: uniqueId, time: new Date() }; 
+};
+
+// Function to create request object for directions service API waypoints
+export const optimizeRequest = async (stops) => { 
+  let start = {};
+  let end = {};
+  const startstop = stopsLocalstorage('startStop');
+  const endstop = stopsLocalstorage('endStop');
+
+  if (startstop.length > 0) {
+    start = startstop[0];
+  } else {
+    // Get current GPS location   
+    start = await fetchGeolocation();
+    console.log("Start location taken:", start);
+  }
+
+  if (endstop.length > 0) {
+    end = endstop[0];
+  } else {
+    end = start;
+  }
+  // Transform stops into waypoints
+  const waypoints = stops.map(item => ({
+    pickups: [
+      {
+        arrivalLocation: {
+          latitude: start.lat,
+          longitude: start.lng
+        }
+      }
+    ],
+    deliveries: [
+      {
+        arrivalLocation: {
+          latitude: item.lat,
+          longitude: item.lng
+        }
+      }
+    ]
+  }));
+
+  // Ensure all required data is fully resolved before returning
+  return {
+    
+    model: {
+      populatePolylines: true,
+      populateTransitionPolylines: true,
+      globalStartTime: calculateTimes.startTime,
+      globalEndTime: calculateTimes.endTime,
+      shipments: waypoints,
+      vehicles: [
+        {
+          startLocation: {
+            latitude: start.lat,
+            longitude: start.lng
+          },
+          endLocation: {
+            latitude: end.lat,
+            longitude: end.lng
+          },
+          costPerKilometer: 2,
+          costPerHour: 50,
+          costPerTraveledHour: 30
+        }
+      ]
+    }
+  };
+};
+
+
+
+export const getData = (dda) => {
+  return fetch(`${process.env.NEXT_PUBLIC_OPTIMIZE_ROUTE_URL}`, {
+      method: "POST",
+      headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+      },
+      body: JSON.stringify(dda)
+      
+  })
+      .then(response => {
+          return response.json();
+      })
+      .catch(err => console.log(err));
+};
+
+export const goButton = async () => { 
+  const stops = stopsLocalstorage('stops').filter(item => item.status === "pending");
+
+  try {
+    // below is clean up of metrics if user reoptimize route 2nd time even current route is in progress stage
+      localStorage.setItem('metrics', JSON.stringify({}));
+      const model = await optimizeRequest(stops);
+      console.log(model);
+
+      // below line for deployment or production enviroment
+      const modelResponse = await getData(model);
+      //const modelResponse = await getOptimizedRoutes(model);
+      console.log(modelResponse);
+      saveMetricsToLocalStorage(modelResponse);
+      const waypoints = extractWaypoints(modelResponse);
+
+      // Ensure only valid waypoints are used
+      const filteredwaypoints = Array.isArray(waypoints) 
+          ? waypoints.filter(item => item !== null && item !== undefined) 
+          : [];
+              
+      const sortedStops = reorderElements(stops, filteredwaypoints);
+      const stopsB = stopsLocalstorage('stops').filter(item => item.status !== "pending");
+      stopsB.push(...sortedStops);
+      localStorage.setItem('stops', JSON.stringify(stopsB));
+      return sortedStops;
+    
+  } catch (error) {
+      console.error('Error in goButton:', error);
+  }
+};
+
+export const completeStop = (id, status) => {
+
+// Get and parse stops from local storage
+let stops = stopsLocalstorage('stops');
+const index = stops.findIndex(stop => stop.stopId === id);
+if (index === -1) {
+  console.warn(`Stop with id ${id} not found.`);
+  return;
+}
+
+// update status of the stop at the specified index
+if (status === "completed") {
+  stops[index].status = "completed"; 
+  stops[index].time = new Date(); 
+} else if (status === "delete"){
+  stops.splice(index, 1)
+} else if (status === "pending"){
+  stops[index].status = "pending";
+  stops[index].time = new Date();
+} else {
+  stops[index].status = "failed";
+  stops[index].time = new Date();
+}
+
+// Save the updated stops back to local storage
+localStorage.setItem('stops', JSON.stringify(stops));
+}
+
+
+
+
+
+// below data migration and cleanzing using javascript
+// simple Function to rename id prop in non nested data array to stopId
+export const renameIdToStopId =  (array) => {
+  return array.map(({ id, ...rest }) => ({
+    stopId: id,
+    ...rest
+  }));
+}
+
+// belwo data migration and cleanzing using javascript
+// docData.updatedAt.toDate()
+// input Data to below algorithm is "timestampStr": "Timestamp(seconds=1743343979, nanoseconds=930000000)",
+const convertFakeTimestampStringToDate = (timestampStr) => {
+  if (!timestampStr) return null;
+  if (typeof timestampStr !== 'string') return timestampStr.toDate?.() || timestampStr;
+
+  const match = timestampStr.match(/seconds=(\d+), nanoseconds=(\d+)/);
+  if (!match) return null;
+
+  const seconds = Number(match[1]);
+  const nanoseconds = Number(match[2]);
+  const milliseconds = seconds * 1000 + Math.floor(nanoseconds / 1e6);
+
+  return new Date(milliseconds);
+};
+
+const convertTimestampObjectToDate = ({ seconds, nanoseconds }) => {
+  if (typeof seconds !== 'number' || typeof nanoseconds !== 'number') return null;
+  return new Date(seconds * 1000 + Math.floor(nanoseconds / 1e6));
+};
+
+
+export const megaCleanzing = (array) => {
+  return array.map(({ starts, ends, createdAt, updatedAt, stops }) => ({
+    start: starts,
+    end: ends,
+    metrics: [],
+    createdAt: convertFakeTimestampStringToDate(createdAt),
+    updatedAt: convertTimestampObjectToDate(updatedAt) || updatedAt,
+    stops: (stops || []).map(({ id, ...rest }) => ({
+      ...rest,
+      stopId: id
+    }))
+  }));
+};
+
+
+
+
+export const renameNestedStopIdKey = (data) => {
+  return data.map(item => ({
+    ...item,
+    stops: item.stops.map(({ id, ...rest }) => ({
+      ...rest,
+      stopId: id
+    }))
+  }));
+}
+// below is the fetch call to migrate bulk data to backend api
+/*
+const sendDatatoAPI = async () => {
+      const granData = stopsLocalstorage('firebaseData');
+      const cleazeData = megaCleanzing(granData);
+      console.log("cleazeData", cleazeData);
+    
+      // Option 1: Parallel API calls (with error handling)
+      try {
+        await Promise.all(
+          cleazeData.map(async (route, i) => {
+            try {
+              console.log(`Submitting route #${i}`, route); // 👀 Log before sending
+              await fetchQuery(`route/create`, {
+                method: 'POST',
+                bodyData: route,
+              });
+            } catch (err) {
+              console.error(`Failed to submit route #${i}`, err);
+            }
+          })
+        );
+        console.log("All routes submitted successfully");
+      } catch (err) {
+        console.error("One or more routes failed to submit", err);
+      }
+    };
+    */

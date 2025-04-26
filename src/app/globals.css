@@ -1,4 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,900&display=swap");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined");
 
 *,
 ::after,
@@ -77,8 +79,15 @@ button:not(:disabled) {
   Typography CSS
 -----------------------------------------------------------------------
 */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
 body {
-    box-sizing: border-box; 
     color: #333333;
     font-size: clamp(0.5rem, 0.8vw, 0.8rem);
     font-family: "Poppins", sans-serif;
@@ -182,113 +191,51 @@ body {
     margin-bottom: 0;
   }
 
+  /* loader css code */ 
 
-
-
-/*  map marker pin elements and info window ................................................   */
-
-
-.pin-container {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    grid-template-rows: auto;
-    gap: 8px; /* Space between marker and InfoWindow */
+  .modalBackground {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
     align-items: center;
+    z-index: 999;
   }
-  
-.pin {
-  width: 30px;
-  height: 30px;
-  background-color: #000; /* Google Maps default red */
-  border: 2px solid #ffffff; /* White border for a polished look */
-  border-radius: 50% 50% 50% 0; /* Creates the pin shape */
-  position: relative;
-  transform: rotate(-45deg); /* Rotates the marker to point downward */
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
-  display: flex;
+
+.lds-dual-ring,
+.lds-dual-ring:after {
+  box-sizing: border-box;
+}
+.lds-dual-ring {
+  display: grid;
   justify-content: center;
   align-items: center;
-  font-size: 18px; /* Adjust size of the number */
-  color: #ffffff; /* White text for contrast */
-  text-align: center;
-  line-height: normal; /* Ensures proper vertical alignment */
-  pointer-events: auto; /* Pointer cursor on hover */
+  width: 100%;
+  height: 100%;
+  color: white;
 }
-
-.pin span {
-  transform: rotate(45deg); /* Counter-rotates the content */
-  display: inline-block; /* Ensures the rotation applies correctly */
-}
-
-.info-window {
-  display: none;
-  flex-direction: column; /* Stack close button and content */
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  padding: 6px 12px;
-  font-size: 12px;
-  color: #333;
-  position: relative; /* Needed for close button positioning */
-  pointer-events: auto; /* Pointer cursor on hover */
-}
-
-.info-window-header {
-  display: flex;
-  justify-content: space-between; /* Push close button to top-right */
-  align-items: center;
-}
-
-.info-window .close-button {
-  font-size: 12px;
-  color: #aaa;
-  cursor: pointer;
-  margin-left: auto; /* Ensure it's aligned to the right */
-}
-
-.info-window .close-button:hover {
-  color: #000;
-}
-
-.info-window .content {
-  margin-top: 4px; /* Add some space below the header */
-}
-
-.infoButton {
-  margin-top: 8px; 
-  padding: 5px 10px; 
-  background-color: #4285F4; 
-  color: white; 
-  border: none;
-  border-radius: 4px; 
-  cursor: pointer; 
-}
-
-/*** Blue dot map position pointer -......................*/
-
-.blue-dot-position {
-  background-color: #4285F4;
-  border: 2px solid white;
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
   border-radius: 50%;
-  width: 12px;
-  height: 12px;
+  border: 6.4px solid currentColor;
+  border-color: currentColor transparent currentColor transparent;
+  animation: lds-dual-ring 0.5s linear infinite;
 }
-
-.custom-map-control-button {
-  background-color: white;
-  border: 2px solid #4285F4;
-  border-radius: 50%;
-  cursor: pointer;
-  margin: 10px;
-  padding: 10px;
-  font-size: 16px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  color:#4285F4;
-}
-.custom-map-control-button:hover {
-  background-color: #000;
-  
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 

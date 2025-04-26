@@ -1,0 +1,29 @@
+
+
+  
+.pin {
+    width: 1.8rem;
+    height: 1.8rem;
+    background-color: #000; /* Google Maps default red */
+    border: 2px solid #ffffff; /* White border for a polished look */
+    border-radius: 50% 50% 50% 0; /* Creates the pin shape */
+    position: relative;
+    transform: rotate(-45deg); /* Rotates the marker to point downward */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px; /* Adjust size of the number */
+    color: #ffffff; /* White text for contrast */
+    text-align: center;
+    line-height: normal; /* Ensures proper vertical alignment */
+    pointer-events: auto; /* Pointer cursor on hover */
+  }
+
+.pin span {
+  transform: rotate(45deg); /* Counter-rotates the content */
+  display: inline-block; /* Ensures the rotation applies correctly */
+}
+
+
+  

@@ -1,0 +1,28 @@
+.todoList {
+  display: flex;
+  align-items: center;
+  padding: 0.625rem; /* 10px */
+  background-color: #fff;
+  border-radius: 0.5rem; /* 8px */
+  margin-bottom: 0.3125rem; /* 5px */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* elevation mimic */
+}
+
+.todoText {
+  flex: 1;
+  font-size: 0.875rem; /* ~14px */
+  color: #000;
+  margin-left: 0.625rem; /* 10px */
+  line-height: 1.4;
+}
+
+.proRemove {
+  background: none;
+  border: none;
+  padding: 0.625rem; /* 10px */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+

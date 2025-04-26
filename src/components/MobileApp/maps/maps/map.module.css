@@ -1,0 +1,9 @@
+/*** Blue dot map position pointer -......................*/
+
+.blue-dot-position {
+  background-color: #4285F4;
+  border: 2px solid white;
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+}

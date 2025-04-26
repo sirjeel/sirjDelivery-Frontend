@@ -1,6 +1,7 @@
 
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import {stopsSlice} from "./stopsSlice";
+import {mapsSlice} from "./mapsSlice";
 
 
 
@@ -8,6 +9,7 @@ import {stopsSlice} from "./stopsSlice";
 
 const rootReducer = combineReducers({
   stops: stopsSlice.reducer, // included properly now
+  maps: mapsSlice.reducer, // included properly now
 });
 
 
