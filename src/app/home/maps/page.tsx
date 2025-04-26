@@ -3,7 +3,7 @@ import styles from "./page.module.css";
 import React, { useState, useEffect, use } from "react";
 import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import { setView, setLocalstorage } from "../../../store/stopsSlice";
+import { setView } from "../../../store/stopsSlice";
 import Autocomplete from "../../../components/MobileApp/autocomplete/Autocomplete";
 import { stopsLocalstorage } from "../../../helper";
 import { useMutate } from "../../../coreApi";
@@ -14,7 +14,6 @@ const RouteinProgress = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const [stops, setStops] = useState([]);  
-  const routeid = localStorage.getItem("routeid");
   const viewState = useAppSelector((state) => state.stops.view);
   const [metrics, setMetrics] = useState([]);
   const [startroute, setStartroute] = useState(false);
@@ -23,6 +22,7 @@ const RouteinProgress = () => {
   const local = useAppSelector((state) => state.stops.updateLocalStorage);
   const { data, error, loading: loadingB, fetchQuery } = useMutate();
   const { data: dataD, error: errorD, loading: loadingD, fetchQuery: deleteRoute } = useMutate();
+  const [routeid, setRouteid] = useState("");
 
 
   const layout = () => {
@@ -34,7 +34,16 @@ const RouteinProgress = () => {
       return styles.layoutB;
     }
   };
-  console.log("idfromAPI", routeid, error,loadingB);
+
+  
+
+useEffect(() => {
+  if (typeof window !== "undefined") {
+    const id = localStorage.getItem("routeid");
+    setRouteid(id || "");
+  }
+}, []);
+
 
   useEffect(() => {
     const idfromAPI = data?._id; // to be taken from API response
