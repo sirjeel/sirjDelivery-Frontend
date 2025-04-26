@@ -40,7 +40,7 @@
   }
 
   export async function fetchAutocomplete(input: string, apiKey: string) {
-    const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(input)}&key=${apiKey}&components=country:gb|country:es`;
+    const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(input)}&key=${apiKey}&components=country:gb`;
   
     const resp = await fetch(url);
     const data = await resp.json();

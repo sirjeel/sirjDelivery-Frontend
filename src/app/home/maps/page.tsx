@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { setView } from "../../../store/stopsSlice";
 import Autocomplete from "../../../components/MobileApp/autocomplete/Autocomplete";
-import { stopsLocalstorage } from "../../../helper";
+import { stopsLocalstorage, getRouteId } from "../../../helper";
 import { useMutate } from "../../../coreApi";
 import MapResults from "../../../components/MobileApp/mapResults/MapResults";
 import Loader from "../../../components/Loader";
@@ -22,7 +22,7 @@ const RouteinProgress = () => {
   const local = useAppSelector((state) => state.stops.updateLocalStorage);
   const { data, error, loading: loadingB, fetchQuery } = useMutate();
   const { data: dataD, error: errorD, loading: loadingD, fetchQuery: deleteRoute } = useMutate();
-  const [routeid, setRouteid] = useState("");
+ const routeid = getRouteId();
 
 
   const layout = () => {
@@ -36,13 +36,6 @@ const RouteinProgress = () => {
   };
 
   
-
-useEffect(() => {
-  if (typeof window !== "undefined") {
-    const id = localStorage.getItem("routeid");
-    setRouteid(id || "");
-  }
-}, []);
 
 
   useEffect(() => {

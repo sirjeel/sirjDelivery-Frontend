@@ -3,7 +3,7 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import styles from './autocomplete.module.css';
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { setStart, setEnd } from "../../../store/stopsSlice";
-import { stopsLocalstorage, fetchData, debounce, addStop } from '../../../helper';
+import { stopsLocalstorage, fetchData, debounce, addStop, getRouteId } from '../../../helper';
 import { useMutate  } from '../../../coreApi';
 import { Predictions } from "../../../types/index";
 import { setLocalstorage, setstartend } from "../../../store/stopsSlice";
@@ -14,9 +14,13 @@ const Autocomplete = ({ mode = 'stops' }) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
   const { data, error, loading: loadingB, fetchQuery } = useMutate();
-  const [routeid, setRouteid] = useState("");
   const [placeid, setSetplaceid] = useState("");
   const [newStop, setNewstop] = useState(null);
+
+  // in redux id dont persist if app killed id lost therefore put in local storage to persist id 
+  // to make sure id is available all times puttting in useeffect result in id got missed when state change
+  // because useeffect has to be linked to redux that is pretty daunting task to sync redux with useeffect 
+  const routeid = getRouteId();
    
   // below is the toggler to re render home stops UI after update on local storage has been made
    const local = useAppSelector((state) => state.stops.updateLocalStorage);
@@ -43,10 +47,7 @@ const Autocomplete = ({ mode = 'stops' }) => {
     []
   );
 
-  useEffect(() => {
-    const routeidfromlocal = localStorage.getItem("routeid");
-    if (routeid) setRouteid(routeidfromlocal);    
-  }, []);
+ 
 
   const handleSelect = (stop) => {    
     if (mode === "start") {
@@ -97,7 +98,7 @@ const Autocomplete = ({ mode = 'stops' }) => {
         return;
       }
         if (routeid) {
-          fetchQuery(`route/addstop`, { method: 'POST', bodyData: { routeId: routeid, stop: stop } });
+          fetchQuery(`route/addstop`, { method: 'PUT', bodyData: { routeId: routeid, stop: stop } });
           setNewstop(stop);
         } else {
           handleSelect(stop);

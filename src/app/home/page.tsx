@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setLocalstorage } from "../../store/stopsSlice";
 import Autocomplete from "../../components/MobileApp/autocomplete/Autocomplete";
-import { stopsLocalstorage, goButton, megaCleanzing } from "../../helper";
+import { stopsLocalstorage, goButton } from "../../helper";
 import StopBar from "../../components/MobileApp/stopsbar/StopBar";
 import StartStopBar from "../../components/MobileApp/startbar/StartStopBar";
 import StartButton from "../../components/MobileApp/startLocationButton/StartButton";
@@ -48,10 +48,11 @@ const Home = () => {
     }, [updateLocalStorage]);
 
   useEffect(() => {
+    // below condition has been removed because when stop.length is 0 deleted stop doesnt re render screen
       const startStopL = stopsLocalstorage("startStop");
       const endStopL = stopsLocalstorage("endStop");
-      if (startStopL.length > 0) setStartStops(startStopL);
-      if (endStopL.length > 0) setEndStops(endStopL);         
+      setStartStops(startStopL);
+      setEndStops(endStopL);         
       }, [updatestartendstops]);
   
   

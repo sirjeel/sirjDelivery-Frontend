@@ -1,0 +1,20 @@
+runtime: nodejs20  
+env: standard 
+entrypoint: npm start      
+
+env_variables:
+  NEXT_PUBLIC_GOOGLE_MAP_API: "AIzaSyAu8qv2mDT75-65kW36Gv2jLhq5VR00i_8"
+  NEXT_PUBLIC_OPTIMIZE_ROUTE_URL: "https://sirjdelivery-backend-305074585575.europe-west2.run.app/get-optimized-routes"
+  NEXT_PUBLIC_VISION_OCR_URL: "https://sirjdelivery-backend-305074585575.europe-west2.run.app/get-ocr"
+  NEXT_PUBLIC_API_URL: "https://sirjdelivery-backend-305074585575.europe-west2.run.app"
+  
+
+handlers:
+  - url: /.*
+    script: auto
+
+
+
+
+
+

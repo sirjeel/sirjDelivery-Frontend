@@ -393,6 +393,12 @@ localStorage.setItem('stops', JSON.stringify(stops));
 }
 
 
+export const getRouteId = () => {
+  if (typeof window !== "undefined") {
+    return localStorage.getItem("routeid");
+  }
+  return null;
+};
 
 
 
@@ -482,3 +488,5 @@ const sendDatatoAPI = async () => {
       }
     };
     */
+   
+  

@@ -1,13 +1,16 @@
 'use client';
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm, type FieldValues } from "react-hook-form";
 import styles from "./search.module.css";
 import { useAppDispatch } from '../../../store/hooks';
+import {flattenStops } from '../../../helper';
+import {useMutate } from '../../../coreApi';
 import { setStops } from '../../../store/stopsSlice';
 
 
 const Search = () => {
   const dispatch =  useAppDispatch();
+    const { data, error, loading: loadingB, fetchQuery } = useMutate();
   
   const {
     register,
@@ -18,29 +21,32 @@ const Search = () => {
   } = useForm({
     mode: "onChange", // validate on change for instant feedback
   });
-  /*
+
+  useEffect(() => {
+    if (error) {
+        console.error("Error submitting query request:", error);
+        alert("Submitting query request failed. Please try again");
+        return;
+    }
+    if (!data) return
+    if (data.routes.length > 0) {
+      const flattenedStops = flattenStops(data?.routes);
+      dispatch(setStops(flattenedStops));
+    }
+  }, [data, error]);
+  
 
   const onSubmit = async (data: FieldValues) => {
     const { start, end } = data;
-    console.log(start); // result is start "2025-04-03"
-    const isoStringStart =  Math.floor(new Date(start).getTime() / 1000);
-    const isoStringEnd = Math.floor(new Date(end).getTime() / 1000);
-    const endingValue = isoStringEnd + 86400;
-    const response = await getRoutesBetweenDates(isoStringStart, endingValue);
-    if (!response) {
-      // response status is not 2xx
-      console.error("Error submitting query request:", response.statusText);
-      alert("Submitting query request failed. Please try again");
-      return;
-      };     
-     dispatch(setStops(response));
+    console.log(start); // result is start "2025-04-03"    
+    fetchQuery(`route/fetchroutebetweenDates`, { method: 'POST', bodyData: {startDate: start, endDate: end }  });       
   }
-    */
     
- // onSubmit={handleSubmit(onSubmit)}
+    
+ 
   return (
     <div className={`${styles["record-header"]} ${styles.records}`}>
-      <form className={styles.formM} >
+      <form className={styles.formM} onSubmit={handleSubmit(onSubmit)}>
         
         <div
           className={`${styles.startGrid} ${
