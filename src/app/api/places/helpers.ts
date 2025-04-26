@@ -2,7 +2,7 @@
 
   export async function optimizeRequest(payload: any) {
    
-    const res = await fetch(`https://sirjdelivery.ew.r.appspot.com/get-optimized-routes`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_OPTIMIZE_ROUTE_URL}`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
