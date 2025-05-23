@@ -3,7 +3,7 @@ import styles from "./page.module.css";
 import React, { useState, useEffect, use } from "react";
 import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import { setView } from "../../../store/stopsSlice";
+import { setView, setLocalstorage } from "../../../store/stopsSlice";
 import Autocomplete from "../../../components/MobileApp/autocomplete/Autocomplete";
 import { stopsLocalstorage, getRouteId } from "../../../helper";
 import { useMutate } from "../../../coreApi";
@@ -13,16 +13,14 @@ import Loader from "../../../components/Loader";
 const RouteinProgress = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const [stops, setStops] = useState([]);  
+  const [stops, setStops] = useState([]); 
   const viewState = useAppSelector((state) => state.stops.view);
   const [metrics, setMetrics] = useState([]);
-  const [startroute, setStartroute] = useState(false);
   const [loading, setLoading] = useState(false);
   const updateLocalStorage = useAppSelector((state) => state.stops.updateLocalStorage);
-  const local = useAppSelector((state) => state.stops.updateLocalStorage);
   const { data, error, loading: loadingB, fetchQuery } = useMutate();
-  const { data: dataD, error: errorD, loading: loadingD, fetchQuery: deleteRoute } = useMutate();
- const routeid = getRouteId();
+  
+  const routeid = getRouteId();
 
 
   const layout = () => {
@@ -43,6 +41,8 @@ const RouteinProgress = () => {
     console.log("idfromAPI", idfromAPI);
     if (idfromAPI) {
       localStorage.setItem('routeid', idfromAPI); 
+    window.ReactNativeWebView?.postMessage(JSON.stringify({ message: "routeid", routeid: idfromAPI }));
+
     const pendingStops = stops.filter((item) => item.status === "pending");
     // below to be taken from API response
     dispatch(setView("inProgress"));
@@ -57,12 +57,11 @@ const RouteinProgress = () => {
     const  endStop=  stopsLocalstorage('endStop');
     const  cleanedStops  =  stops.filter(item => item.status !== "error");
     localStorage.setItem('stops', JSON.stringify(cleanedStops));
-    fetchQuery(`route/create`, { method: 'POST', bodyData: {stops: cleanedStops, metrics: metrics, start: startStop, end: endStop}  });       
+    fetchQuery(`${process.env.NEXT_PUBLIC_API_URL}/route/create`, { method: 'POST', bodyData: {stops: cleanedStops, metrics: metrics, start: startStop, end: endStop}  });       
   };
 
 const finishRoute = () => {
-  setLoading(true);
-  
+  setLoading(true);  
   // clean up app state  
   localStorage.setItem('routeid', ""); 
   localStorage.setItem('stops', JSON.stringify([]));
@@ -70,29 +69,41 @@ const finishRoute = () => {
   localStorage.setItem('startStop', JSON.stringify([]));
   localStorage.setItem('endStop', JSON.stringify([]));  
   localStorage.setItem('metrics', JSON.stringify([]));
-  
+  window.ReactNativeWebView?.postMessage(JSON.stringify({ message: "routeid", routeid: "" }));  
   window.location.reload();
 };
 
 
+
+useEffect(() => {
+  const  stopsL =  stopsLocalstorage('stops');
+  if (stopsL?.length > 0) setStops(stopsL);    
+ 
+  const  metricsData =  stopsLocalstorage('metrics');   
+  setMetrics(metricsData);
+  const pendingStops = stopsL.filter((item) => item.status === "pending");
+  if (pendingStops.length > 0 && !routeid) dispatch(setView("startRoute"));    
+  if (pendingStops.length === 0 && routeid) dispatch(setView("finishRoute"));
+  if (pendingStops.length > 0 && routeid) dispatch(setView("inProgress"));
+  if (pendingStops.length === 0 && !routeid) dispatch(setView("")); 
+}, [updateLocalStorage]);
+
+
+   const handleStopsUpdate = () => {
+      console.log("localStorage updated")
+        setTimeout(() => { dispatch(setLocalstorage(!updateLocalStorage)); }, 500); // 800ms delay
+   }
+
   useEffect(() => {
-    const  stopsL =  stopsLocalstorage('stops');
-    if (stopsL?.length > 0) setStops(stopsL);    
-    // update below line to delete routeid from backend
-    if (stopsL?.length === 0 && routeid) {
-      localStorage.setItem("metrics", JSON.stringify([]));
-      deleteRoute(`route/deleteOneroute`, { method: 'DELETE', bodyData: {id: routeid}  });
-      localStorage.setItem('routeid', ""); 
-       window.location.reload();
-    }  
-    const  metricsData =  stopsLocalstorage('metrics');   
-    setMetrics(metricsData);
-    const pendingStops = stopsL.filter((item) => item.status === "pending");
-    if (pendingStops.length > 0 && !routeid) dispatch(setView("startRoute"));    
-    if (pendingStops.length === 0 && routeid) dispatch(setView("finishRoute"));
-    if (pendingStops.length > 0 && routeid) dispatch(setView("inProgress"));
-    if (pendingStops.length === 0 && !routeid) dispatch(setView("")); 
-  }, [updateLocalStorage]);
+       console.log("webview Stops event listener activated")
+       window.addEventListener('stopsUpdated',  handleStopsUpdate); 
+      
+      return () => {
+      console.log("webview Stops event listener removed")
+      window.removeEventListener('stopsUpdated',  handleStopsUpdate);
+    };
+      }, []);
+
 
 
   return (

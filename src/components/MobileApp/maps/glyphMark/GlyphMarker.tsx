@@ -3,12 +3,13 @@ import styles from "./glyph.module.css";
 
 type GlyphMarkerProps = {
   serial: number;
+  status: string;
 };
 
 
-const GlyphMarker = ({ serial }: GlyphMarkerProps) => {
+const GlyphMarker = ({ serial, status = "pending" }: GlyphMarkerProps ) => {
    return (
-    <div className={styles.pin}><span>{serial}</span></div> 
+    <div className={`${styles.pin} ${status !== "pending" ? styles.pinfaded : null }`}><span>{serial}</span></div> 
    ) 
   };
 

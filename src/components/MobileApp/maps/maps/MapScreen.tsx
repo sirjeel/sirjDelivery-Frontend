@@ -9,7 +9,6 @@ import { useAppSelector, useAppDispatch } from '../../../../store/hooks';
 import { setMapClickedStop } from '../../../../store/stopsSlice';
 import { setPosition, setCenter } from '../../../../store/mapsSlice';
 import { useRouter, usePathname } from "next/navigation";
-import Loader from '../../../Loader';
 import styles from "./map.module.css";
 
 
@@ -27,9 +26,9 @@ const MapScreen = () => {
 
 
     useEffect(() => {
-      const  fetchstops  =  stopsLocalstorage('stops')
-      const  stops  =  fetchstops.filter(item => item.status === "pending");
-       setStops(stops);      
+      const  fetchstops  =  stopsLocalstorage('stops')      
+      const  cleanStops  =  fetchstops.filter(item => item.status !== "error");
+       setStops(cleanStops);      
       }, [updateLocalStorage]);
 
 
@@ -126,7 +125,7 @@ const MapScreen = () => {
                 position={{ lat: stop.lat, lng: stop.lng }}
                 onClick={() => setSelectedStop(stop)}
               >
-                <GlyphMarker serial={index + 1} />
+                <GlyphMarker serial={index + 1} status={stop?.status} />
               </AdvancedMarker>
             ))}  
 
@@ -151,7 +150,15 @@ const MapScreen = () => {
            {/* Absolutely position the GPS button over the map */}
         <GpsLocation />          
       </>
-        ) : (<div className="modalBackground"><Loader/></div> )}
+        ) : (
+        <div className={styles.modalBackground}>
+          <div id="myModal" className="modal">
+            <div className="modal-content">
+              <div className={styles.ldsdualring}></div>
+          </div>
+        </div>
+        </div> 
+        )}
       </APIProvider>
     </div>
   );

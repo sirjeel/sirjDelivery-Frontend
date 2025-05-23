@@ -32,7 +32,6 @@ const Autocomplete = ({ mode = 'stops' }) => {
 
 
 
-  // Debounced input value for predictions
   const debouncedSearch = useCallback(
     debounce((value: string) => {
       if (value.trim().length < 8 || !/^[a-zA-Z0-9\s,.-]+$/.test(value)) {
@@ -95,10 +94,11 @@ const Autocomplete = ({ mode = 'stops' }) => {
         const stop = await addStop(placeid);
       if (!stop) {
         console.error("Error: Unable to add stop.");
+        alert("Unable to load Stop. Please try again");
         return;
       }
-        if (routeid) {
-          fetchQuery(`route/addstop`, { method: 'PUT', bodyData: { routeId: routeid, stop: stop } });
+        if (routeid && mode === "stops") {
+          fetchQuery(`${process.env.NEXT_PUBLIC_API_URL}/route/addstop`, { method: 'PUT', bodyData: { routeId: routeid, stop: stop } });
           setNewstop(stop);
         } else {
           handleSelect(stop);

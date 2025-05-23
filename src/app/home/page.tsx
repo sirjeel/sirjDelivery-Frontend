@@ -1,11 +1,11 @@
 "use client";
 import styles from "./page.module.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setLocalstorage } from "../../store/stopsSlice";
 import Autocomplete from "../../components/MobileApp/autocomplete/Autocomplete";
-import { stopsLocalstorage, goButton } from "../../helper";
+import { stopsLocalstorage, goButton, getRouteId } from "../../helper";
 import StopBar from "../../components/MobileApp/stopsbar/StopBar";
 import StartStopBar from "../../components/MobileApp/startbar/StartStopBar";
 import StartButton from "../../components/MobileApp/startLocationButton/StartButton";
@@ -25,27 +25,36 @@ const Home = () => {
   const [errStops, setErrorstops] = useState([]);
   const [startStop, setStartStops] = useState([]);
   const [endStop, setEndStops] = useState([]);
+ 
+// setTimeout(() => { dispatch(setLocalstorage(!updateLocalStorage)); }, 500); // 800ms delay
+// dispatch(setLocalstorage(!updateLocalStorage)); 
+  
+  
+   const handleStopsUpdate = () => {
+      console.log("localStorage updated")
+       setTimeout(() => { dispatch(setLocalstorage(!updateLocalStorage)); }, 500); // 800ms delay
+   }
+
+  useEffect(() => {
+       console.log("webview Stops event listener activated")
+       window.addEventListener('stopsUpdated',  handleStopsUpdate); 
+      
+      return () => {
+      console.log("webview Stops event listener removed")
+      window.removeEventListener('stopsUpdated',  handleStopsUpdate);
+    };
+      }, []);
 
  
 
-  const renderWebviewStops = () => dispatch(setLocalstorage(!updateLocalStorage))
 
-  useEffect(() => {          
-    window.addEventListener('stopsUpdated', renderWebviewStops);
-    console.log("Webview Eventlisteners has been added");
-
-    return () => {
-      window.removeEventListener('stopsUpdated', renderWebviewStops);
-      console.log("Webview Eventlisteners has been removed");}
-    }, []);
-
-  useEffect(() => {
-    const  fetchstops  =  stopsLocalstorage('stops')
-    const  stops  =  fetchstops.filter(item => item.status === "pending");
-    const  errStops  =  fetchstops.filter(item => item.status === "error");
-    if (stops.length > 0) setStops(stops);
-    if (errStops.length > 0) setErrorstops(errStops);      
-    }, [updateLocalStorage]);
+    useEffect(() => {
+      const  fetchstops  =  stopsLocalstorage('stops')
+      const  stops  =  fetchstops.filter(item => item.status === "pending");
+      const  errStops  =  fetchstops.filter(item => item.status === "error");
+      if (stops.length > 0) setStops(stops);
+      if (errStops.length > 0) setErrorstops(errStops);      
+      }, [updateLocalStorage]);
 
   useEffect(() => {
     // below condition has been removed because when stop.length is 0 deleted stop doesnt re render screen
@@ -127,7 +136,7 @@ const Home = () => {
         {errStops.length ? (<div className={styles.errorList} onClick={() => router.push("home/errorstops")}>
           <p className={styles.errorText}> {errStops.length} Stops with Error Tap here to see !</p></div>) : ""}
           {stops?.map((item, index) => (
-            <StopBar key={index} data={item} />
+            <StopBar key={item.stopId} data={item} />
           ))}
         </div>
       </div>

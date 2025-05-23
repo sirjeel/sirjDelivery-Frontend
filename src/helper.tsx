@@ -1,4 +1,4 @@
-import { start } from "repl";
+
 
 const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAP_API;
 
@@ -130,7 +130,7 @@ export const reportingMetrics = (metrics, stops ) => {
   // Fixed adjustedHours and added adjustedDistance calculation
   const adjustedHours = (
     (metrics?.travelDuration ? JSON.parse(metrics.travelDuration) : 0) 
-    + (0.0583 * (stops?.length || 0))
+    + (0.0417 * (stops?.length || 0))
   );
   
   const adjustedDistance = metrics.travelDistance ? JSON.parse(metrics.travelDistance) : 0;
@@ -391,6 +391,25 @@ if (status === "completed") {
 // Save the updated stops back to local storage
 localStorage.setItem('stops', JSON.stringify(stops));
 }
+
+
+
+// Fixed calculateBounds function
+export const calculateBounds = (center, radiusInKm) => {
+  const earthRadiusInKm = 6378.1; // Earth's radius in kilometers
+  const rad = radiusInKm / earthRadiusInKm;
+  const radToDeg = 180 / Math.PI;
+
+  const minLat = center.lat - rad * radToDeg;
+  const maxLat = center.lat + rad * radToDeg;
+  const minLng = center.lng - (radToDeg * rad) / Math.cos(center.lat * (Math.PI / 180));
+  const maxLng = center.lng + (radToDeg * rad) / Math.cos(center.lat * (Math.PI / 180));
+
+  return { minLat, maxLat, minLng, maxLng };
+};
+
+
+  
 
 
 export const getRouteId = () => {

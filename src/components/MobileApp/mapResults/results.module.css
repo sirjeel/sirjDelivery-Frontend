@@ -7,6 +7,10 @@
     border-radius: 0.5rem; /* 8px */
     margin-bottom: 0.3125rem; /* 5px */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* elevation mimic */
+    opacity: 1;
+  transition: opacity 300ms cubic-bezier(.694, 0, 0.335, 1), background-color 100ms cubic-bezier(.694, 0, 0.335, 1), color 100ms cubic-bezier(.694, 0, 0.335, 1);
+	touch-action: manipulation;
+  position: relative;
   }
   
   .todoText {
@@ -25,7 +29,10 @@
         border-radius: 0.5rem; /* 8px */
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* elevation mimic */
         margin-bottom: 0.3125rem; /* 5px */
-        cursor: pointer;
+            opacity: 1;
+  transition: opacity 300ms cubic-bezier(.694, 0, 0.335, 1), background-color 100ms cubic-bezier(.694, 0, 0.335, 1), color 100ms cubic-bezier(.694, 0, 0.335, 1);
+	touch-action: manipulation;
+  position: relative;
         
         }
        
@@ -55,3 +62,69 @@
             font-size: 0.9rem;
          }
           
+    
+         
+/* below code is button todoList animation */
+.todoList:before {
+	animation: opacityFallbackOut .5s step-end forwards;
+	backface-visibility: hidden;
+	background-color: #EBEBEB;
+	clip-path: polygon(-1% 0, 0 0, -25% 100%, -1% 100%);
+	content: "";
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	transform: translateZ(0);
+	transition: clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1), -webkit-clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1);
+	width: 100%;
+}
+
+.todoList:hover:before {
+	animation: opacityFallbackIn 0s step-start forwards;
+	clip-path: polygon(0 0, 101% 0, 101% 101%, 0 101%);
+}
+
+.todoList:after {
+	background-color: #FFFFFF;
+}
+
+.todoList span {
+	z-index: 1;
+	position: relative;
+}
+
+/* Ends code above button todoList animation */
+
+
+/* below code is button todoListB animation */
+.todoListB:before {
+	animation: opacityFallbackOut .5s step-end forwards;
+	backface-visibility: hidden;
+	background-color: #EBEBEB;
+	clip-path: polygon(-1% 0, 0 0, -25% 100%, -1% 100%);
+	content: "";
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	transform: translateZ(0);
+	transition: clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1), -webkit-clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1);
+	width: 100%;
+}
+
+.todoListB:hover:before {
+	animation: opacityFallbackIn 0s step-start forwards;
+	clip-path: polygon(0 0, 101% 0, 101% 101%, 0 101%);
+}
+
+.todoListB:after {
+	background-color: #FFFFFF;
+}
+
+.todoListB span {
+	z-index: 1;
+	position: relative;
+}
+
+/* Ends code above button todoListB animation */

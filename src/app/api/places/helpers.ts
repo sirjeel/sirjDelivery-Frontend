@@ -1,5 +1,4 @@
 
-
   export async function optimizeRequest(payload: any) {
    
     const res = await fetch(`${process.env.NEXT_PUBLIC_OPTIMIZE_ROUTE_URL}`, {
@@ -39,8 +38,32 @@
     };
   }
 
+
+
+
+// Modified fetchAutocomplete function with bounds
+// No need for calculateBounds anymore for autocomplete
+export async function fetchAutocomplete(input: string, apiKey: string) {
+  const center = { lat: 52.9647713, lng: -1.1697501 };
+  const radiusInMeters = 15000; // 20 km = 20,000 meters
+
+  const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(input)}&key=${apiKey}&components=country:gb&location=${center.lat},${center.lng}&radius=${radiusInMeters}&strictbounds=true`;
+
+  const resp = await fetch(url);
+  const data = await resp.json();
+
+  if (data.status !== "OK" && data.status !== "ZERO_RESULTS") {
+    throw new Error(`Autocomplete error: ${data.status}`);
+  }
+
+  return data;
+}
+
+
+
+/*
   export async function fetchAutocomplete(input: string, apiKey: string) {
-    const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(input)}&key=${apiKey}&components=country:gb`;
+    const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(input)}&key=${apiKey}&components=country:gb|country:es`;
   
     const resp = await fetch(url);
     const data = await resp.json();
@@ -51,4 +74,4 @@
   
     return data;
   }
-  
+*/

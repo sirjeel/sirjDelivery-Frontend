@@ -6,12 +6,18 @@ import styles from './results.module.css';
 const ResultsB = ({ stops, routeId }) => {
   const [ride, setRide] = useState(null);
   const router = useRouter();
-  useEffect(() => {
-    if (!ride) return;
+  
+useEffect(() => {
+  if (!ride) return;
 
+  const timeout = setTimeout(() => {
     localStorage.setItem('rideDestination', JSON.stringify([ride]));
     router.push('/home/ride');
-  }, [ride, router]);
+  }, 0); // delay to let localStorage complete before navigating
+
+  return () => clearTimeout(timeout);
+}, [ride, router]);
+
 
   // Early return if no stops
   if (!stops || stops.length === 0) return null;

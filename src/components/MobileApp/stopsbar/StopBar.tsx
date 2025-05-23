@@ -11,7 +11,7 @@ const StopBar = ({ data }) => {
   }
 
   return (
-    <div className={styles.todoList} onClick={handleDestination}>
+    <div className={styles.todoList  } onClick={handleDestination}>
       <p className={styles.todoText}>{data.name}</p>
       </div>
   );

@@ -39,10 +39,8 @@ const Search = () => {
   const onSubmit = async (data: FieldValues) => {
     const { start, end } = data;
     console.log(start); // result is start "2025-04-03"    
-    fetchQuery(`route/fetchroutebetweenDates`, { method: 'POST', bodyData: {startDate: start, endDate: end }  });       
+    fetchQuery(`${process.env.NEXT_PUBLIC_API_URL}/route/fetchroutebetweenDates`, { method: 'POST', bodyData: {startDate: start, endDate: end }  });       
   }
-    
-    
  
   return (
     <div className={`${styles["record-header"]} ${styles.records}`}>

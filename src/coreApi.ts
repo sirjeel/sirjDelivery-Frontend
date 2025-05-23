@@ -35,7 +35,7 @@ export const useMutate = () => {
                 ...customOptions,
             };
 
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${url}`, requestOptions);
+            const response = await fetch(url, requestOptions);
 
             const responseData = await response.json();
 

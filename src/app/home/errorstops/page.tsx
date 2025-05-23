@@ -1,33 +1,64 @@
 'use client';
 import React, { useState, useEffect } from "react";
 import styles from './stop.module.css';
-import {stopsLocalstorage, completeStop} from "../../../helper";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import {stopsLocalstorage, getRouteId} from "../../../helper";
+import {useMutate} from "../../../coreApi";
 import Loader from "../../../components/Loader";
 import { useRouter } from "next/navigation";
-import StopBar from "../../../components/MobileApp/stopsbar/StopBar";
 
 
 const StopView = () => {
 
   const [loading, setLoading] = useState(false);
   const [errStops, setErrorstops] = useState([]);
-  const [refreshpage, setRefresh] = useState(false);
-  const dispatch = useAppDispatch();
+  const [refreshpage, setRefresh] = useState(false);  
+  const [routeid, setRouteid] = useState("");
+  const [stopid, setStopid] = useState("");
   const router = useRouter();
+  const { data, error, fetchQuery} = useMutate();
   
-  const handleErrorStops = (id) => {
+
+    const urlbackend = process.env.NEXT_PUBLIC_API_URL
+    // On mount: set routeid
+    useEffect(() => {
+      const routeidfromlocal = getRouteId();
+      setRouteid(routeidfromlocal);
+    }, []);
+
+     useEffect(() => {
+      if (error) {
+        setLoading(false);
+        alert("stop cannot be deleted please try again later")
+      }
+      if (data?.success ) {
+        const  stops  =  stopsLocalstorage('stops')
+        const index = stops.findIndex(item => item.stopId === stopid);
+        if (index !== -1) { stops.splice(index, 1); } else { console.warn(`Stop with id ${stopid} not found.`)}
+        localStorage.setItem('stops', JSON.stringify(stops));
+        setStopid("");
+        setLoading(false);
+        setRefresh(prev => !prev);
+
+      }
+    }, [data, error]);
+ 
+    useEffect(() => {
+      if (stopid) {
     setLoading(true);
     const  stops  =  stopsLocalstorage('stops')
-    const index = stops.findIndex(item => item.stopId === id);
-    if (index !== -1) { stops.splice(index, 1); } else { console.warn(`Stop with id ${id} not found.`)}
+    if (routeid) {
+     fetchQuery(`${urlbackend}/route/deletestop`, { method: 'DELETE',    bodyData: { routeId: routeid, stopId: stopid } });
+    } else {
+    const index = stops.findIndex(item => item.stopId === stopid);
+    if (index !== -1) { stops.splice(index, 1); } else { console.warn(`Stop with id ${stopid} not found.`)}
     localStorage.setItem('stops', JSON.stringify(stops));
+    setStopid("");
     setLoading(false);
-    setRefresh(!refreshpage);
+    setRefresh(prev => !prev);
+
+    } 
   }
-     
- 
-      
+    }, [stopid, routeid]);    
 
   useEffect(() => {
     const  fetchstops  =  stopsLocalstorage('stops');
@@ -48,10 +79,10 @@ const StopView = () => {
       </div>
       <div className={styles.results}>
           {errStops?.map((item, index) => (
-            <div className={styles.todoList}>
+            <div className={styles.todoList} key={item.stopId || index}>
             <div className={styles.proremove}><i className="fa-solid fa-flag"></i></div>
-            <div className={styles.todoTextB}>{item.name}</div>
-            <div className={styles.proremove} onClick={() => handleErrorStops(item.stopId)}>
+            <div className={styles.todoTextB}>{item?.name}</div>
+            <div className={styles.proremove} onClick={() => setStopid(item?.stopId)}>
             <i className="fa-solid fa-trash"></i>
             </div>  
             </div>
